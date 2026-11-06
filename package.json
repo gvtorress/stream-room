@@ -1,10 +1,28 @@
 {
   "name": "selfhosted-discord",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pnpm -r --parallel run start",
+    "start:dev": "pnpm -r --parallel run start:dev",
+    "dev": "pnpm start:dev",
+    "start:prod": "pnpm -r --parallel run start:prod",
+    "start:debug": "pnpm --filter api start:debug",
+    "build": "pnpm -r run build",
+    "format": "prettier --write package.json pnpm-workspace.yaml commitlint.config.js README.md && pnpm -r --if-present run format",
+    "format:check": "prettier --check package.json pnpm-workspace.yaml commitlint.config.js README.md && pnpm -r --if-present run format:check",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r --if-present run test",
+    "test:watch": "pnpm -r --parallel --if-present run test:watch",
+    "test:cov": "pnpm -r --if-present run test:cov",
+    "test:e2e": "pnpm -r --if-present run test:e2e",
+    "preview": "pnpm --filter frontend preview",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "commitlint": "commitlint",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +35,11 @@
     }
   },
   "packageManager": "pnpm@12.15.0",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.10"
+  }
 }
