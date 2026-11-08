@@ -1,4 +1,14 @@
 import { useEffect, useState } from 'react'
+import type { HealthResponse } from '@stream-room/shared'
+
+function isHealthResponse(body: unknown): body is HealthResponse {
+  return (
+    typeof body === 'object' &&
+    body !== null &&
+    'status' in body &&
+    body.status === 'ok'
+  )
+}
 
 function App() {
   const [status, setStatus] = useState<'Checking' | 'Online' | 'Offline'>(
@@ -18,11 +28,7 @@ function App() {
         }
 
         const body: unknown = await response.json()
-        const online =
-          typeof body === 'object' &&
-          body !== null &&
-          'status' in body &&
-          body.status === 'ok'
+        const online = isHealthResponse(body)
 
         if (!controller.signal.aborted) {
           setStatus(online ? 'Online' : 'Offline')

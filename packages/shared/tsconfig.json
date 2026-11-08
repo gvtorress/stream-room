@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "NodeNext",
+    "target": "ES2023",
+    "types": [],
+    "noEmit": true
+  },
+  "include": ["src"]
+}
