@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import type { HealthResponse } from '@stream-room/shared';
 import { AppService } from './app.service.js';
 
 @Controller()
@@ -6,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('health')
-  getHealth(): { status: 'ok' } {
+  getHealth(): HealthResponse {
     return { status: 'ok' };
   }
 

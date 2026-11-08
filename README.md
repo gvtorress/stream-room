@@ -65,6 +65,17 @@ Repository-wide commands remain available for validation and Git hooks:
 | `pnpm test:e2e`     | Run available workspace end-to-end tests                           |
 | `pnpm check`        | Run lint, type checks, unit tests, and builds across the workspace |
 
+## Shared contracts
+
+`packages/shared` provides the private pnpm workspace package `@stream-room/shared`.
+Both applications depend on it through `workspace:*` and import contracts with
+`import type`, for example `HealthResponse = { status: 'ok' }`.
+
+This package contains TypeScript declarations only, so no build step or runtime
+code is needed. Root type-check and formatting commands include the package.
+Shared types describe expected data; the frontend still validates API responses
+at runtime before treating them as a `HealthResponse`.
+
 ## Git hooks
 
 `pnpm install` installs Husky hooks through the root `prepare` script.
