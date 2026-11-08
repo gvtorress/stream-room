@@ -16,6 +16,8 @@ In a separate terminal, run `pnpm web:dev`.
 The API uses port 3000 by default (`PORT` overrides it). The frontend uses Vite's
 default port 5173. The applications are currently independent starter applications.
 
+The API exposes `GET /health`, which returns HTTP 200 with `{ "status": "ok" }`.
+
 ## Workspace commands
 
 Run these commands from the repository root:
