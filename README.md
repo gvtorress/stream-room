@@ -72,6 +72,12 @@ port as HTTP (3000 by default), using the default `/socket.io` path. A client
 emitting `ping` receives a `pong` event with the string payload `"pong"`.
 The response goes only to the client that sent the ping.
 
+The frontend creates its client in `apps/frontend/src/realtime/socket.ts`.
+It shows the realtime connection status and sends a ping on each connection.
+A missing pong after five seconds, a connection error, or a disconnect displays
+`Ping response: no response`. Vite proxies `/socket.io` to the API with WebSocket
+support; production hosting must provide equivalent routing.
+
 ```ts
 const socket = io('http://localhost:3000', { transports: ['websocket'] });
 socket.on('pong', (message) => console.log(message));

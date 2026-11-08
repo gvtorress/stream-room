@@ -5,6 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      '/socket.io': {
+        target: 'http://localhost:3000',
+        ws: true,
+      },
       '/api/': {
         target: 'http://localhost:3000',
         rewrite: (path) => path.replace(/^\/api/, ''),

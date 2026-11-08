@@ -18,9 +18,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@stream-room/shared": "workspace:*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "@stream-room/shared": "workspace:*"
+    "socket.io-client": "^4.8.4"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.3",
