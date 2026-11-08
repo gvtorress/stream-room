@@ -1,17 +1,10 @@
+import type { ClientEvents, ServerEvents } from '@stream-room/shared';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import type { Server } from 'node:http';
 import { io } from 'socket.io-client';
 import type { Socket } from 'socket.io-client';
 import { AppModule } from '../src/app.module.js';
-
-interface ServerEvents {
-  pong: (message: string) => void;
-}
-
-interface ClientEvents {
-  ping: () => void;
-}
 
 type TestSocket = Socket<ServerEvents, ClientEvents>;
 

@@ -72,6 +72,12 @@ port as HTTP (3000 by default), using the default `/socket.io` path. A client
 emitting `ping` receives a `pong` event with the string payload `"pong"`.
 The response goes only to the client that sent the ping.
 
+The frontend creates its client in `apps/frontend/src/realtime/socket.ts`.
+It shows the realtime connection status and sends a ping on each connection.
+A missing pong after five seconds, a connection error, or a disconnect displays
+`Ping response: no response`. Vite proxies `/socket.io` to the API with WebSocket
+support; production hosting must provide equivalent routing.
+
 ```ts
 const socket = io('http://localhost:3000', { transports: ['websocket'] });
 socket.on('pong', (message) => console.log(message));
@@ -86,6 +92,9 @@ tests with `pnpm api:test:e2e`; they use ephemeral local ports.
 `packages/shared` provides the private pnpm workspace package `@stream-room/shared`.
 Both applications depend on it through `workspace:*` and import contracts with
 `import type`, for example `HealthResponse = { status: 'ok' }`.
+`ServerEvents` describes server-to-client events, and `ClientEvents` describes
+client-to-server events. The frontend socket and backend Socket.IO tests share
+these event maps; the gateway also derives its pong payload type from them.
 
 This package contains TypeScript declarations only, so no build step or runtime
 code is needed. Root type-check and formatting commands include the package.

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import type { HealthResponse } from '@stream-room/shared'
+import { useRealtimeStatus } from './realtime/use-realtime-status'
 
 function App() {
   const [status, setStatus] = useState<'Checking' | 'Online' | 'Offline'>(
     'Checking',
   )
+
+  const { realtimeStatus, pingResponse } = useRealtimeStatus()
 
   useEffect(() => {
     async function checkHealth() {
@@ -27,6 +30,8 @@ function App() {
   return (
     <main>
       <p role="status">Server status: {status}</p>
+      <p role="status">Realtime connection status: {realtimeStatus}</p>
+      <p role="status">Ping response: {pingResponse}</p>
     </main>
   )
 }
