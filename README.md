@@ -14,9 +14,12 @@ pnpm api:start:dev
 In a separate terminal, run `pnpm web:dev`.
 
 The API uses port 3000 by default (`PORT` overrides it). The frontend uses Vite's
-default port 5173. The applications are currently independent starter applications.
+default port 5173. The frontend checks API availability when the page loads.
 
 The API exposes `GET /health`, which returns HTTP 200 with `{ "status": "ok" }`.
+The frontend requests `/api/health` and displays Checking, Online, or Offline.
+Vite's development server proxies `/api/` to `http://localhost:3000`, removing the
+`/api` prefix. A production web server must provide equivalent routing.
 
 ## Workspace commands
 
@@ -34,8 +37,8 @@ Run these commands from the repository root:
 | `pnpm api:format:check` | `pnpm web:format:check`               | Check the selected application's formatting                                           |
 | `pnpm api:lint`         | `pnpm web:lint`                       | Lint the selected application                                                         |
 | `pnpm api:typecheck`    | `pnpm web:typecheck`                  | Type-check the selected application                                                   |
-| `pnpm api:test`         | —                                     | Run API unit tests                                                                    |
-| `pnpm api:test:watch`   | —                                     | Watch API unit tests                                                                  |
+| `pnpm api:test`         | `pnpm web:test`                       | Run application unit tests                                                            |
+| `pnpm api:test:watch`   | `pnpm web:test:watch`                 | Watch application unit tests                                                          |
 | `pnpm api:test:cov`     | —                                     | Run API unit tests with coverage                                                      |
 | `pnpm api:test:e2e`     | —                                     | Run API end-to-end tests                                                              |
 | `pnpm api:check`        | `pnpm web:check`                      | Run lint, type checks, available unit tests, and a build for the selected application |
@@ -44,7 +47,8 @@ Build the selected application before running its `start:prod` or `preview`
 command. Vite preview is a preview server; a self-hosted production deployment
 should serve the frontend's `dist` directory through a suitable static web server.
 
-Tests currently exist only in the API; the frontend does not have a test suite yet.
+Frontend tests use Vitest and React Testing Library with a mocked fetch function.
+They do not require a running API.
 The `web:*` commands target the workspace package named `frontend`.
 
 Repository-wide commands remain available for validation and Git hooks:
