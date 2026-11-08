@@ -65,6 +65,22 @@ Repository-wide commands remain available for validation and Git hooks:
 | `pnpm test:e2e`     | Run available workspace end-to-end tests                           |
 | `pnpm check`        | Run lint, type checks, unit tests, and builds across the workspace |
 
+## Realtime API
+
+The API accepts Socket.IO connections over the WebSocket transport on the same
+port as HTTP (3000 by default), using the default `/socket.io` path. A client
+emitting `ping` receives a `pong` event with the string payload `"pong"`.
+The response goes only to the client that sent the ping.
+
+```ts
+const socket = io('http://localhost:3000', { transports: ['websocket'] });
+socket.on('pong', (message) => console.log(message));
+socket.emit('ping');
+```
+
+The example uses `io` from `socket.io-client`. Run the API HTTP and Socket.IO
+tests with `pnpm api:test:e2e`; they use ephemeral local ports.
+
 ## Shared contracts
 
 `packages/shared` provides the private pnpm workspace package `@stream-room/shared`.
