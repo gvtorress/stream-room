@@ -92,6 +92,9 @@ tests with `pnpm api:test:e2e`; they use ephemeral local ports.
 `packages/shared` provides the private pnpm workspace package `@stream-room/shared`.
 Both applications depend on it through `workspace:*` and import contracts with
 `import type`, for example `HealthResponse = { status: 'ok' }`.
+`ServerEvents` describes server-to-client events, and `ClientEvents` describes
+client-to-server events. The frontend socket and backend Socket.IO tests share
+these event maps; the gateway also derives its pong payload type from them.
 
 This package contains TypeScript declarations only, so no build step or runtime
 code is needed. Root type-check and formatting commands include the package.
