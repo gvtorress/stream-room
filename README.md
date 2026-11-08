@@ -73,8 +73,8 @@ Both applications depend on it through `workspace:*` and import contracts with
 
 This package contains TypeScript declarations only, so no build step or runtime
 code is needed. Root type-check and formatting commands include the package.
-Shared types describe expected data; the frontend still validates API responses
-at runtime before treating them as a `HealthResponse`.
+Shared types describe expected data at compile time. The frontend uses
+`HealthResponse` when reading the health response JSON.
 
 ## Git hooks
 
