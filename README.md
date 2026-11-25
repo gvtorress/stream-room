@@ -65,6 +65,13 @@ Repository-wide commands remain available for validation and Git hooks:
 | `pnpm test:e2e`     | Run available workspace end-to-end tests                           |
 | `pnpm check`        | Run lint, type checks, unit tests, and builds across the workspace |
 
+## Backend modules
+
+`AppModule` composes `HealthModule` and `RealtimeModule`. Each feature owns its
+files under `apps/api/src/health` or `apps/api/src/realtime`. The health controller
+serves `GET /health`, and the realtime gateway handles Socket.IO ping/pong.
+The starter `GET /` route and its app controller/service have been removed.
+
 ## Realtime API
 
 The API accepts Socket.IO connections over the WebSocket transport on the same
